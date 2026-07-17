@@ -1,0 +1,29 @@
+model User {
+  id          String     @id @default(uuid())
+  name        String
+  email       String     @unique
+  password    String
+  phoneNumber String?
+  profileImage String?
+
+  role        UserRole   @default(CUSTOMER)
+  status      UserStatus @default(UNBAN)
+
+  createdAt    DateTime     @default(now())
+  updatedAt    DateTime     @default(now())
+
+//   technicianProfile TechnicianProfile?
+//   bookingsAsCustomer Booking[]
+//   reviews     Review[]
+}
+
+enum UserRole {
+  CUSTOMER
+  TECHNICIAN
+  ADMIN
+}
+
+enum UserStatus {
+  BAN
+  UNBAN
+}

@@ -69,7 +69,7 @@ const refreshToken = async (refreshToken: string) => {
     expiresIn: config.jwt_access_expires_in,
   } as SignOptions);
 
-  return { accessToken };
+  return { accessToken, refreshToken };
 };
 
 export const authService = { loginUserService, refreshToken };

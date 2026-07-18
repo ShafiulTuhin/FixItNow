@@ -52,6 +52,7 @@ export const AnyNull = runtime.AnyNull
 
 export const ModelName = {
   Category: 'Category',
+  Profile: 'Profile',
   Service: 'Service',
   TechnicianProfile: 'TechnicianProfile',
   User: 'User'
@@ -83,6 +84,17 @@ export const CategoryScalarFieldEnum = {
 export type CategoryScalarFieldEnum = (typeof CategoryScalarFieldEnum)[keyof typeof CategoryScalarFieldEnum]
 
 
+export const ProfileScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  phone: 'phone',
+  address: 'address',
+  avatar: 'avatar'
+} as const
+
+export type ProfileScalarFieldEnum = (typeof ProfileScalarFieldEnum)[keyof typeof ProfileScalarFieldEnum]
+
+
 export const ServiceScalarFieldEnum = {
   id: 'id',
   title: 'title',
@@ -90,6 +102,7 @@ export const ServiceScalarFieldEnum = {
   price: 'price',
   availability: 'availability',
   skills: 'skills',
+  location: 'location',
   technicianId: 'technicianId',
   categoryId: 'categoryId',
   createdAt: 'createdAt',
@@ -104,7 +117,6 @@ export const TechnicianProfileScalarFieldEnum = {
   userId: 'userId',
   bio: 'bio',
   experience: 'experience',
-  location: 'location',
   verified: 'verified',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'

@@ -5,7 +5,6 @@ model TechnicianProfile {
 
   bio          String?
   experience   Int?
-  location     String?
   verified     Boolean  @default(false)
   services  Service[]
 

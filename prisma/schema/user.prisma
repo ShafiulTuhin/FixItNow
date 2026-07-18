@@ -13,6 +13,7 @@ model User {
   updatedAt    DateTime     @default(now())
 
  technicianProfile TechnicianProfile ?
+ profile Profile?
 //   bookingsAsCustomer Booking[]
 //   reviews     Review[]
 

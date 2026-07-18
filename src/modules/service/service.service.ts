@@ -1,7 +1,10 @@
 import { prisma } from "../../lib/prisma";
 import { ICreateServicesPayload } from "./service.interface";
 
-const createPost = async (payload: ICreateServicesPayload, userId: string) => {
+const createService = async (
+  payload: ICreateServicesPayload,
+  userId: string,
+) => {
   const technician = await prisma.technicianProfile.findUniqueOrThrow({
     where: {
       userId,
@@ -19,4 +22,9 @@ const createPost = async (payload: ICreateServicesPayload, userId: string) => {
   return result;
 };
 
-export const techniciansService = { createPost };
+const getAllService = async () => {
+  const services = await prisma.service.findMany();
+  return services;
+};
+
+export const techniciansService = { createService, getAllService };

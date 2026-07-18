@@ -6,6 +6,7 @@ model Service {
   price         Float
   availability  String?
   skills       String[]
+  location     String?
 
   technicianId  String
   technician    TechnicianProfile   @relation(fields: [technicianId], references: [id], onDelete: Cascade)

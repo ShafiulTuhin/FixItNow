@@ -4,12 +4,15 @@ import { techniciansService } from "./service.service";
 import { sendResponse } from "../../utils/sendResponse";
 import httpStatus from "http-status";
 
-const createPost = catchAsync(
+const createService = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
     const id = req.user?.id;
     const payload = req.body;
 
-    const result = await techniciansService.createPost(payload, id as string);
+    const result = await techniciansService.createService(
+      payload,
+      id as string,
+    );
 
     sendResponse(res, {
       success: true,
@@ -20,4 +23,17 @@ const createPost = catchAsync(
   },
 );
 
-export const serviceController = { createPost };
+const getAllServices = catchAsync(
+  async (req: Request, res: Response, next: NextFunction) => {
+    const posts = await techniciansService.getAllService();
+
+    sendResponse(res, {
+      success: true,
+      statusCode: httpStatus.OK,
+      message: "Services retrieved successfully",
+      data: posts,
+    });
+  },
+);
+
+export const serviceController = { createService, getAllServices };

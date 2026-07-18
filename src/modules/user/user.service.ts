@@ -24,6 +24,11 @@ const registerUserIntoDB = async (payload: RegisterUser) => {
       role: payload.role,
     },
   });
+  await prisma.profile.create({
+    data: {
+      userId: createUser.id,
+    },
+  });
 
   if (payload.role === UserRole.TECHNICIAN) {
     await prisma.technicianProfile.create({
@@ -47,7 +52,7 @@ const registerUserIntoDB = async (payload: RegisterUser) => {
         ? {
             technicianProfile: true,
           }
-        : undefined,
+        : { profile: true },
   });
 
   return user;
@@ -61,8 +66,13 @@ const getMyProfileFromDB = async (userId: string) => {
     },
     include: {
       technicianProfile: true,
+      profile: true,
     },
   });
+  if (user.role !== UserRole.TECHNICIAN) {
+    const { technicianProfile, ...rest } = user;
+    return rest;
+  }
 
   return user;
 };

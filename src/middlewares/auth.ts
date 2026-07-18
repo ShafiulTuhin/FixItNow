@@ -21,6 +21,7 @@ declare global {
 
 export const auth = (...requiredRoles: UserRole[]) => {
   return catchAsync(async (req: Request, res: Response, next: NextFunction) => {
+    // console.log("Auth middleware called");
     const token = req.cookies.accessToken
       ? req.cookies.accessToken
       : req.headers.authorization?.startsWith("Bearer ")
@@ -39,9 +40,18 @@ export const auth = (...requiredRoles: UserRole[]) => {
       throw new Error("FOrbidden, You don't have permission to access.");
     }
 
+    // const user = await prisma.user.findUnique({
+    //   where: { id, email, name, role },
+    // });
+    // if (!user) {
+    //   throw new Error("User not found!");
+    // }
     const user = await prisma.user.findUnique({
-      where: { id, email, name, role },
+      where: {
+        id,
+      },
     });
+
     if (!user) {
       throw new Error("User not found!");
     }

@@ -6,4 +6,4 @@ const router = Router();
 router.get("/", technicianController.getAllTechnician);
 router.get("/:id", technicianController.getTechnicianById);
 
-export const technicianRoutes = router;
+export const techniciansRoutes = router;

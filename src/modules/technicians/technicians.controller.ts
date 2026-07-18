@@ -34,4 +34,7 @@ const getTechnicianById = catchAsync(
   },
 );
 
-export const technicianController = { getAllTechnician, getTechnicianById };
+export const technicianController = {
+  getAllTechnician,
+  getTechnicianById,
+};

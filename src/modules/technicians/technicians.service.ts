@@ -61,4 +61,7 @@ const getTechnicianById = async (technicianId: string) => {
   return result;
 };
 
-export const technicianService = { getAllTechnicians, getTechnicianById };
+export const technicianService = {
+  getAllTechnicians,
+  getTechnicianById,
+};

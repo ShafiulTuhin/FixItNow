@@ -224,6 +224,7 @@ export type UserWhereInput = {
   updatedAt?: Prisma.DateTimeFilter<"User"> | Date | string
   technicianProfile?: Prisma.XOR<Prisma.TechnicianProfileNullableScalarRelationFilter, Prisma.TechnicianProfileWhereInput> | null
   profile?: Prisma.XOR<Prisma.ProfileNullableScalarRelationFilter, Prisma.ProfileWhereInput> | null
+  reviews?: Prisma.ReviewListRelationFilter
 }
 
 export type UserOrderByWithRelationInput = {
@@ -239,6 +240,7 @@ export type UserOrderByWithRelationInput = {
   updatedAt?: Prisma.SortOrder
   technicianProfile?: Prisma.TechnicianProfileOrderByWithRelationInput
   profile?: Prisma.ProfileOrderByWithRelationInput
+  reviews?: Prisma.ReviewOrderByRelationAggregateInput
 }
 
 export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -257,6 +259,7 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   updatedAt?: Prisma.DateTimeFilter<"User"> | Date | string
   technicianProfile?: Prisma.XOR<Prisma.TechnicianProfileNullableScalarRelationFilter, Prisma.TechnicianProfileWhereInput> | null
   profile?: Prisma.XOR<Prisma.ProfileNullableScalarRelationFilter, Prisma.ProfileWhereInput> | null
+  reviews?: Prisma.ReviewListRelationFilter
 }, "id" | "email">
 
 export type UserOrderByWithAggregationInput = {
@@ -304,6 +307,7 @@ export type UserCreateInput = {
   updatedAt?: Date | string
   technicianProfile?: Prisma.TechnicianProfileCreateNestedOneWithoutUserInput
   profile?: Prisma.ProfileCreateNestedOneWithoutUserInput
+  reviews?: Prisma.ReviewCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateInput = {
@@ -319,6 +323,7 @@ export type UserUncheckedCreateInput = {
   updatedAt?: Date | string
   technicianProfile?: Prisma.TechnicianProfileUncheckedCreateNestedOneWithoutUserInput
   profile?: Prisma.ProfileUncheckedCreateNestedOneWithoutUserInput
+  reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserUpdateInput = {
@@ -334,6 +339,7 @@ export type UserUpdateInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   technicianProfile?: Prisma.TechnicianProfileUpdateOneWithoutUserNestedInput
   profile?: Prisma.ProfileUpdateOneWithoutUserNestedInput
+  reviews?: Prisma.ReviewUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateInput = {
@@ -349,6 +355,7 @@ export type UserUncheckedUpdateInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   technicianProfile?: Prisma.TechnicianProfileUncheckedUpdateOneWithoutUserNestedInput
   profile?: Prisma.ProfileUncheckedUpdateOneWithoutUserNestedInput
+  reviews?: Prisma.ReviewUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateManyInput = {
@@ -448,6 +455,20 @@ export type UserUpdateOneRequiredWithoutProfileNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutProfileInput, Prisma.UserUpdateWithoutProfileInput>, Prisma.UserUncheckedUpdateWithoutProfileInput>
 }
 
+export type UserCreateNestedOneWithoutReviewsInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutReviewsInput, Prisma.UserUncheckedCreateWithoutReviewsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutReviewsInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutReviewsNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutReviewsInput, Prisma.UserUncheckedCreateWithoutReviewsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutReviewsInput
+  upsert?: Prisma.UserUpsertWithoutReviewsInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutReviewsInput, Prisma.UserUpdateWithoutReviewsInput>, Prisma.UserUncheckedUpdateWithoutReviewsInput>
+}
+
 export type UserCreateNestedOneWithoutTechnicianProfileInput = {
   create?: Prisma.XOR<Prisma.UserCreateWithoutTechnicianProfileInput, Prisma.UserUncheckedCreateWithoutTechnicianProfileInput>
   connectOrCreate?: Prisma.UserCreateOrConnectWithoutTechnicianProfileInput
@@ -482,6 +503,7 @@ export type UserCreateWithoutProfileInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   technicianProfile?: Prisma.TechnicianProfileCreateNestedOneWithoutUserInput
+  reviews?: Prisma.ReviewCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutProfileInput = {
@@ -496,6 +518,7 @@ export type UserUncheckedCreateWithoutProfileInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   technicianProfile?: Prisma.TechnicianProfileUncheckedCreateNestedOneWithoutUserInput
+  reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutProfileInput = {
@@ -526,6 +549,7 @@ export type UserUpdateWithoutProfileInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   technicianProfile?: Prisma.TechnicianProfileUpdateOneWithoutUserNestedInput
+  reviews?: Prisma.ReviewUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutProfileInput = {
@@ -540,6 +564,83 @@ export type UserUncheckedUpdateWithoutProfileInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   technicianProfile?: Prisma.TechnicianProfileUncheckedUpdateOneWithoutUserNestedInput
+  reviews?: Prisma.ReviewUncheckedUpdateManyWithoutUserNestedInput
+}
+
+export type UserCreateWithoutReviewsInput = {
+  id?: string
+  name: string
+  email: string
+  password: string
+  phoneNumber?: string | null
+  profileImage?: string | null
+  role?: $Enums.UserRole
+  status?: $Enums.UserStatus
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  technicianProfile?: Prisma.TechnicianProfileCreateNestedOneWithoutUserInput
+  profile?: Prisma.ProfileCreateNestedOneWithoutUserInput
+}
+
+export type UserUncheckedCreateWithoutReviewsInput = {
+  id?: string
+  name: string
+  email: string
+  password: string
+  phoneNumber?: string | null
+  profileImage?: string | null
+  role?: $Enums.UserRole
+  status?: $Enums.UserStatus
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  technicianProfile?: Prisma.TechnicianProfileUncheckedCreateNestedOneWithoutUserInput
+  profile?: Prisma.ProfileUncheckedCreateNestedOneWithoutUserInput
+}
+
+export type UserCreateOrConnectWithoutReviewsInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutReviewsInput, Prisma.UserUncheckedCreateWithoutReviewsInput>
+}
+
+export type UserUpsertWithoutReviewsInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutReviewsInput, Prisma.UserUncheckedUpdateWithoutReviewsInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutReviewsInput, Prisma.UserUncheckedCreateWithoutReviewsInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutReviewsInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutReviewsInput, Prisma.UserUncheckedUpdateWithoutReviewsInput>
+}
+
+export type UserUpdateWithoutReviewsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.StringFieldUpdateOperationsInput | string
+  phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  profileImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  technicianProfile?: Prisma.TechnicianProfileUpdateOneWithoutUserNestedInput
+  profile?: Prisma.ProfileUpdateOneWithoutUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutReviewsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.StringFieldUpdateOperationsInput | string
+  phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  profileImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  technicianProfile?: Prisma.TechnicianProfileUncheckedUpdateOneWithoutUserNestedInput
+  profile?: Prisma.ProfileUncheckedUpdateOneWithoutUserNestedInput
 }
 
 export type UserCreateWithoutTechnicianProfileInput = {
@@ -554,6 +655,7 @@ export type UserCreateWithoutTechnicianProfileInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   profile?: Prisma.ProfileCreateNestedOneWithoutUserInput
+  reviews?: Prisma.ReviewCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutTechnicianProfileInput = {
@@ -568,6 +670,7 @@ export type UserUncheckedCreateWithoutTechnicianProfileInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   profile?: Prisma.ProfileUncheckedCreateNestedOneWithoutUserInput
+  reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutTechnicianProfileInput = {
@@ -598,6 +701,7 @@ export type UserUpdateWithoutTechnicianProfileInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   profile?: Prisma.ProfileUpdateOneWithoutUserNestedInput
+  reviews?: Prisma.ReviewUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutTechnicianProfileInput = {
@@ -612,8 +716,38 @@ export type UserUncheckedUpdateWithoutTechnicianProfileInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   profile?: Prisma.ProfileUncheckedUpdateOneWithoutUserNestedInput
+  reviews?: Prisma.ReviewUncheckedUpdateManyWithoutUserNestedInput
 }
 
+
+/**
+ * Count Type UserCountOutputType
+ */
+
+export type UserCountOutputType = {
+  reviews: number
+}
+
+export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  reviews?: boolean | UserCountOutputTypeCountReviewsArgs
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the UserCountOutputType
+   */
+  select?: Prisma.UserCountOutputTypeSelect<ExtArgs> | null
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountReviewsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ReviewWhereInput
+}
 
 
 export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -629,6 +763,8 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   updatedAt?: boolean
   technicianProfile?: boolean | Prisma.User$technicianProfileArgs<ExtArgs>
   profile?: boolean | Prisma.User$profileArgs<ExtArgs>
+  reviews?: boolean | Prisma.User$reviewsArgs<ExtArgs>
+  _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["user"]>
 
 export type UserSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -674,6 +810,8 @@ export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = run
 export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   technicianProfile?: boolean | Prisma.User$technicianProfileArgs<ExtArgs>
   profile?: boolean | Prisma.User$profileArgs<ExtArgs>
+  reviews?: boolean | Prisma.User$reviewsArgs<ExtArgs>
+  _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type UserIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
 export type UserIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
@@ -683,6 +821,7 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
   objects: {
     technicianProfile: Prisma.$TechnicianProfilePayload<ExtArgs> | null
     profile: Prisma.$ProfilePayload<ExtArgs> | null
+    reviews: Prisma.$ReviewPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -1091,6 +1230,7 @@ export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Typ
   readonly [Symbol.toStringTag]: "PrismaPromise"
   technicianProfile<T extends Prisma.User$technicianProfileArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$technicianProfileArgs<ExtArgs>>): Prisma.Prisma__TechnicianProfileClient<runtime.Types.Result.GetResult<Prisma.$TechnicianProfilePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   profile<T extends Prisma.User$profileArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$profileArgs<ExtArgs>>): Prisma.Prisma__ProfileClient<runtime.Types.Result.GetResult<Prisma.$ProfilePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+  reviews<T extends Prisma.User$reviewsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$reviewsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ReviewPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1558,6 +1698,30 @@ export type User$profileArgs<ExtArgs extends runtime.Types.Extensions.InternalAr
    */
   include?: Prisma.ProfileInclude<ExtArgs> | null
   where?: Prisma.ProfileWhereInput
+}
+
+/**
+ * User.reviews
+ */
+export type User$reviewsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Review
+   */
+  select?: Prisma.ReviewSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Review
+   */
+  omit?: Prisma.ReviewOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ReviewInclude<ExtArgs> | null
+  where?: Prisma.ReviewWhereInput
+  orderBy?: Prisma.ReviewOrderByWithRelationInput | Prisma.ReviewOrderByWithRelationInput[]
+  cursor?: Prisma.ReviewWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ReviewScalarFieldEnum | Prisma.ReviewScalarFieldEnum[]
 }
 
 /**

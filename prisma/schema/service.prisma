@@ -6,7 +6,7 @@ model Service {
   price         Float
   availability  String?
   skills       String[]
-  location     String?
+  location     String
 
   technicianId  String
   technician    TechnicianProfile   @relation(fields: [technicianId], references: [id], onDelete: Cascade)
@@ -16,6 +16,8 @@ model Service {
 
   createdAt     DateTime            @default(now())
   updatedAt     DateTime            @updatedAt
+
+  reviews Review[]
 
   @@map("services")
 }

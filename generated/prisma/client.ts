@@ -52,6 +52,11 @@ export type Category = Prisma.CategoryModel
  */
 export type Profile = Prisma.ProfileModel
 /**
+ * Model Review
+ * 
+ */
+export type Review = Prisma.ReviewModel
+/**
  * Model Service
  * 
  */

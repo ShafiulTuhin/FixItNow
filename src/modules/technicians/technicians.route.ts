@@ -4,5 +4,6 @@ import { technicianController } from "./technicians.controller";
 const router = Router();
 
 router.get("/", technicianController.getAllTechnician);
+router.get("/:id", technicianController.getTechnicianById);
 
 export const technicianRoutes = router;

@@ -1,4 +1,4 @@
-import { UserStatus } from "../../../generated/prisma/enums";
+import { UserRole, UserStatus } from "../../../generated/prisma/enums";
 import { prisma } from "../../lib/prisma";
 import { ICreateCategoryPayload } from "./admin.interface";
 
@@ -31,8 +31,29 @@ const getAllUser = async () => {
   return result;
 };
 
+// const updateUser = async (status: UserStatus, userId: string) => {
+//   console.log(userId);
+//   const result = await prisma.user.update({
+//     where: {
+//       id: userId,
+//     },
+//     data: {
+//       status,
+//     },
+//   });
+//   return result;
+// };
 const updateUser = async (status: UserStatus, userId: string) => {
-  // console.log(userId);
+  const user = await prisma.user.findUniqueOrThrow({
+    where: {
+      id: userId,
+    },
+  });
+
+  if (user.role === UserRole.ADMIN && status === UserStatus.BAN) {
+    throw new Error("Admin cannot be banned");
+  }
+
   const result = await prisma.user.update({
     where: {
       id: userId,
@@ -41,6 +62,7 @@ const updateUser = async (status: UserStatus, userId: string) => {
       status,
     },
   });
+
   return result;
 };
 

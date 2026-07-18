@@ -27,6 +27,11 @@ const getAllTechnicians = async () => {
   //   const result = await prisma.technicianProfile.findMany();
   const result = await prisma.technicianProfile.findMany({
     include: {
+      user: {
+        omit: {
+          password: true,
+        },
+      },
       services: {
         include: {
           reviews: true,
@@ -38,4 +43,22 @@ const getAllTechnicians = async () => {
   return result;
 };
 
-export const technicianService = { getAllTechnicians };
+const getTechnicianById = async (technicianId: string) => {
+  const result = await prisma.technicianProfile.findUniqueOrThrow({
+    where: {
+      id: technicianId,
+    },
+    include: {
+      services: {
+        include: {
+          reviews: true,
+          category: true,
+        },
+      },
+    },
+  });
+
+  return result;
+};
+
+export const technicianService = { getAllTechnicians, getTechnicianById };

@@ -4,7 +4,8 @@ model Service {
   title         String              @db.VarChar(255)
   description   String              @db.Text
   price         Float
-  duration      Int                 // Duration in minutes
+  availability  String?
+  skills       String[]
 
   technicianId  String
   technician    TechnicianProfile   @relation(fields: [technicianId], references: [id], onDelete: Cascade)

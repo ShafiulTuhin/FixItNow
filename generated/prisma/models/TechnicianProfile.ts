@@ -448,10 +448,6 @@ export type TechnicianProfileUpdateOneRequiredWithoutServicesNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.TechnicianProfileUpdateToOneWithWhereWithoutServicesInput, Prisma.TechnicianProfileUpdateWithoutServicesInput>, Prisma.TechnicianProfileUncheckedUpdateWithoutServicesInput>
 }
 
-export type NullableStringFieldUpdateOperationsInput = {
-  set?: string | null
-}
-
 export type NullableIntFieldUpdateOperationsInput = {
   set?: number | null
   increment?: number

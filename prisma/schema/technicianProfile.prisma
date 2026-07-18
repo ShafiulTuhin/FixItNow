@@ -7,7 +7,7 @@ model TechnicianProfile {
   experience   Int?
   location     String?
   verified     Boolean  @default(false)
-    services  Service[]
+  services  Service[]
 
   createdAt    DateTime @default(now())
   updatedAt    DateTime @updatedAt

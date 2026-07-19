@@ -73,54 +73,6 @@ const getMyBookings = async (userId: string) => {
 };
 
 // Update booking status: approve/decline/accept
-
-// const updateBookingStatus = async (
-//   userId: string,
-//   bookingId: string,
-//   status: BookingStatus,
-// ) => {
-//   // Find technician profile
-//   const technician = await prisma.technicianProfile.findUniqueOrThrow({
-//     where: {
-//       userId,
-//     },
-//     select: {
-//       id: true,
-//     },
-//   });
-
-//   // Verify booking belongs to this technician
-//   const booking = await prisma.booking.findFirst({
-//     where: {
-//       id: bookingId,
-//       technicianId: technician.id,
-//     },
-//   });
-
-//   // if (!booking) {
-//   //   throw new AppError(httpStatus.NOT_FOUND, "Booking not found.");
-//   // }
-
-//   const updatedBooking = await prisma.booking.update({
-//     where: {
-//       id: bookingId,
-//     },
-//     data: {
-//       status,
-//     },
-//     include: {
-//       customer: true,
-//       service: true,
-//       technician: {
-//         include: {
-//           user: true,
-//         },
-//       },
-//     },
-//   });
-
-//   return updatedBooking;
-// };
 const updateBookingStatus = async (
   userId: string,
   bookingId: string,
@@ -179,8 +131,63 @@ const updateBookingStatus = async (
   return updatedBooking;
 };
 
+const updateServiceAvailability = async (
+  userId: string,
+  serviceId: string,
+  payload: {
+    availability?: string;
+  },
+) => {
+  // Find logged-in technician
+  const technician = await prisma.technicianProfile.findUniqueOrThrow({
+    where: {
+      userId,
+    },
+    select: {
+      id: true,
+    },
+  });
+
+  // Verify ownership
+  const service = await prisma.service.findFirst({
+    where: {
+      id: serviceId,
+      technicianId: technician.id,
+    },
+  });
+
+  if (!service) {
+    throw new Error("You are not authorized to update this service.");
+  }
+
+  // Update service
+  const updatedService = await prisma.service.update({
+    where: {
+      id: serviceId,
+    },
+    data: {
+      availability: payload.availability,
+    },
+    // include: {
+    //   category: true,
+    //   technician: {
+    //     include: {
+    //       user: {
+    //         omit: {
+    //           password: true,
+    //         },
+    //       },
+    //     },
+    //   },
+    // },
+  });
+
+  return updatedService;
+};
+
 export const technicianService = {
   updateTechnicianProfile,
   getMyBookings,
   updateBookingStatus,
+  updateServiceAvailability,
 };

@@ -19,4 +19,34 @@ const createBooking = catchAsync(
   },
 );
 
-export const bookingController = { createBooking };
+const getMyBookings = catchAsync(async (req: Request, res: Response) => {
+  const result = await bookingService.getMyBookings(req.user!.id);
+
+  sendResponse(res, {
+    success: true,
+    statusCode: httpStatus.OK,
+    message: "Bookings retrieved successfully",
+    data: result,
+  });
+});
+
+const getBookingDetails = catchAsync(async (req: Request, res: Response) => {
+  const { id } = req.params;
+
+  const result = await bookingService.getBookingDetails(
+    req.user!.id,
+    id as string,
+  );
+
+  sendResponse(res, {
+    success: true,
+    statusCode: httpStatus.OK,
+    message: "Booking details retrieved successfully",
+    data: result,
+  });
+});
+export const bookingController = {
+  createBooking,
+  getMyBookings,
+  getBookingDetails,
+};

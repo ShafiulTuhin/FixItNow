@@ -21,5 +21,9 @@ router.patch(
   auth(UserRole.TECHNICIAN),
   technicianController.updateBookingStatus,
 );
-
+router.put(
+  "/availability/:id",
+  auth(UserRole.TECHNICIAN),
+  technicianController.updateServiceAvailability,
+);
 export const technicianRoutes = router;

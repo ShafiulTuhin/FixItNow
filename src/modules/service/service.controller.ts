@@ -23,17 +23,27 @@ const createService = catchAsync(
   },
 );
 
-const getAllServices = catchAsync(
-  async (req: Request, res: Response, next: NextFunction) => {
-    const posts = await techniciansService.getAllService();
+// const getAllServices = catchAsync(
+//   async (req: Request, res: Response, next: NextFunction) => {
+//     const posts = await techniciansService.getAllService();
 
-    sendResponse(res, {
-      success: true,
-      statusCode: httpStatus.OK,
-      message: "Services retrieved successfully",
-      data: posts,
-    });
-  },
-);
+//     sendResponse(res, {
+//       success: true,
+//       statusCode: httpStatus.OK,
+//       message: "Services retrieved successfully",
+//       data: posts,
+//     });
+//   },
+// );
+const getAllServices = catchAsync(async (req: Request, res: Response) => {
+  const result = await techniciansService.getAllService(req.query);
+
+  sendResponse(res, {
+    success: true,
+    statusCode: httpStatus.OK,
+    message: "Services retrieved successfully",
+    data: result,
+  });
+});
 
 export const serviceController = { createService, getAllServices };

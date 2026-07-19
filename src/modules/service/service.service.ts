@@ -22,8 +22,170 @@ const createService = async (
   return result;
 };
 
-const getAllService = async () => {
-  const services = await prisma.service.findMany();
+// const getAllService = async () => {
+//   const services = await prisma.service.findMany();
+//   return services;
+// };
+
+// const getAllService = async (query: Record<string, any>) => {
+//   const where: any = {
+//     AND: [],
+//   };
+
+//   // Search by service title
+//   if (query.searchTerm) {
+//     where.AND.push({
+//       title: {
+//         contains: query.searchTerm,
+//         mode: "insensitive",
+//       },
+//     });
+//   }
+
+//   // Filter by location
+//   if (query.location) {
+//     where.AND.push({
+//       location: {
+//         contains: query.location,
+//         mode: "insensitive",
+//       },
+//     });
+//   }
+
+//   // Filter by minimum price
+//   if (query.minPrice) {
+//     where.AND.push({
+//       price: {
+//         gte: Number(query.minPrice),
+//       },
+//     });
+//   }
+
+//   // Filter by maximum price
+//   if (query.maxPrice) {
+//     where.AND.push({
+//       price: {
+//         lte: Number(query.maxPrice),
+//       },
+//     });
+//   }
+
+//   // Filter by category (service type)
+//   if (query.categoryId) {
+//     where.AND.push({
+//       categoryId: query.categoryId,
+//     });
+//   }
+
+//   const services = await prisma.service.findMany({
+//     where,
+//     include: {
+//       category: true,
+//       technician: {
+//         include: {
+//           user: {
+//             omit: {
+//               password: true,
+//             },
+//           },
+//         },
+//       },
+//       reviews: true,
+//     },
+//   });
+
+//   // Filter by average rating (because Prisma can't directly filter by average)
+//   if (query.rating) {
+//     return services.filter((service) => {
+//       if (service.reviews.length === 0) return false;
+
+//       const average =
+//         service.reviews.reduce((sum, review) => sum + review.rating, 0) /
+//         service.reviews.length;
+
+//       return average >= Number(query.rating);
+//     });
+//   }
+
+//   return services;
+// };
+const getAllService = async (query: Record<string, any>) => {
+  const where: any = {
+    AND: [],
+  };
+
+  // Search by service title
+  if (query.searchTerm) {
+    where.AND.push({
+      title: {
+        contains: query.searchTerm,
+        mode: "insensitive",
+      },
+    });
+  }
+
+  // Filter by category name
+  if (query.category) {
+    where.AND.push({
+      category: {
+        name: {
+          contains: query.category,
+          mode: "insensitive",
+        },
+      },
+    });
+  }
+
+  // Filter by location
+  if (query.location) {
+    where.AND.push({
+      location: {
+        contains: query.location,
+        mode: "insensitive",
+      },
+    });
+  }
+
+  // Filter by price
+  if (query.minPrice || query.maxPrice) {
+    where.AND.push({
+      price: {
+        ...(query.minPrice && { gte: Number(query.minPrice) }),
+        ...(query.maxPrice && { lte: Number(query.maxPrice) }),
+      },
+    });
+  }
+
+  const services = await prisma.service.findMany({
+    where,
+    include: {
+      category: true,
+      technician: {
+        include: {
+          user: {
+            omit: {
+              password: true,
+            },
+          },
+        },
+      },
+      reviews: true,
+    },
+  });
+
+  // Filter by average rating
+  if (query.rating) {
+    return services.filter((service) => {
+      if (service.reviews.length === 0) return false;
+
+      const averageRating =
+        service.reviews.reduce((sum, review) => sum + review.rating, 0) /
+        service.reviews.length;
+
+      return averageRating >= Number(query.rating);
+    });
+  }
+
   return services;
 };
 

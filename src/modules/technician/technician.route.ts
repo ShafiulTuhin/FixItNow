@@ -16,4 +16,10 @@ router.get(
   technicianController.getMyBookings,
 );
 
+router.patch(
+  "/bookings/:id",
+  auth(UserRole.TECHNICIAN),
+  technicianController.updateBookingStatus,
+);
+
 export const technicianRoutes = router;

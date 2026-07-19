@@ -7,6 +7,7 @@ model TechnicianProfile {
   experience   Int?
   verified     Boolean  @default(false)
   services  Service[]
+  bookingsAsCustomer Booking[]
 
   createdAt    DateTime @default(now())
   updatedAt    DateTime @updatedAt

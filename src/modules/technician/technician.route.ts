@@ -10,5 +10,10 @@ router.put(
   auth(UserRole.TECHNICIAN),
   technicianController.updateTechnicianProfile,
 );
+router.get(
+  "/bookings",
+  auth(UserRole.TECHNICIAN),
+  technicianController.getMyBookings,
+);
 
 export const technicianRoutes = router;

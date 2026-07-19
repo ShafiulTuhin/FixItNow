@@ -17,5 +17,6 @@ router.patch(
   auth(UserRole.ADMIN),
   adminController.updateUser,
 );
+router.get("/bookings", auth(UserRole.ADMIN), adminController.getAllBookings);
 
 export const adminRoutes = router;

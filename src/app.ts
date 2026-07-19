@@ -10,6 +10,7 @@ import { adminRoutes } from "./modules/admin/admin.route";
 import { serviceRoutes } from "./modules/service/service.route";
 import { techniciansRoutes } from "./modules/technicians/technicians.route";
 import { technicianRoutes } from "./modules/technician/technician.route";
+import { bookingRoutes } from "./modules/bookings/booking.route";
 
 const app: Application = express();
 
@@ -28,6 +29,7 @@ app.use("/api/admin", adminRoutes);
 app.use("/api/services", serviceRoutes);
 app.use("/api/technicians", techniciansRoutes);
 app.use("/api/technician", technicianRoutes);
+app.use("/api/bookings", bookingRoutes);
 
 app.use(notFound);
 app.use(globalErrorHandler);

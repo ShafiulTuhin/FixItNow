@@ -9,6 +9,24 @@
 * 🟢 You can import this file directly.
 */
 
+export const BookingStatus = {
+  PENDING: 'PENDING',
+  ACCEPT: 'ACCEPT',
+  DECLINE: 'DECLINE',
+  COMPLETE: 'COMPLETE'
+} as const
+
+export type BookingStatus = (typeof BookingStatus)[keyof typeof BookingStatus]
+
+
+export const PaymentStatus = {
+  PENDING: 'PENDING',
+  PAID: 'PAID'
+} as const
+
+export type PaymentStatus = (typeof PaymentStatus)[keyof typeof PaymentStatus]
+
+
 export const UserRole = {
   CUSTOMER: 'CUSTOMER',
   TECHNICIAN: 'TECHNICIAN',

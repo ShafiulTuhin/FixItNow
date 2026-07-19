@@ -18,6 +18,7 @@ model Service {
   updatedAt     DateTime            @updatedAt
 
   reviews Review[]
+  bookingsAsCustomer Booking[]
 
   @@map("services")
 }

@@ -14,7 +14,7 @@ model User {
 
  technicianProfile TechnicianProfile ?
  profile Profile?
-//   bookingsAsCustomer Booking[]
+   myBookings Booking[]
    reviews     Review[]
 
 @@map("users")

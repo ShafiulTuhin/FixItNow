@@ -3,11 +3,6 @@ import { prisma } from "../../lib/prisma";
 import { ICreateCategoryPayload } from "./admin.interface";
 
 const createCategory = async (payload: ICreateCategoryPayload) => {
-  // const result = await prisma.category.create({
-  //   data: {
-  //     ...payload,
-  //   },
-  // });
   const result = await prisma.category.create({
     data: {
       name: payload.name,
@@ -31,18 +26,6 @@ const getAllUser = async () => {
   return result;
 };
 
-// const updateUser = async (status: UserStatus, userId: string) => {
-//   console.log(userId);
-//   const result = await prisma.user.update({
-//     where: {
-//       id: userId,
-//     },
-//     data: {
-//       status,
-//     },
-//   });
-//   return result;
-// };
 const updateUser = async (status: UserStatus, userId: string) => {
   const user = await prisma.user.findUniqueOrThrow({
     where: {
@@ -66,9 +49,20 @@ const updateUser = async (status: UserStatus, userId: string) => {
   return result;
 };
 
+const getAllBookings = async () => {
+  const result = await prisma.booking.findMany({
+    orderBy: {
+      createdAt: "desc",
+    },
+  });
+
+  return result;
+};
+
 export const adminService = {
   createCategory,
   getAllCategory,
   getAllUser,
   updateUser,
+  getAllBookings,
 };

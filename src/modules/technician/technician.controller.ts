@@ -27,4 +27,15 @@ const updateTechnicianProfile = catchAsync(
   },
 );
 
-export const technicianController = { updateTechnicianProfile };
+const getMyBookings = catchAsync(async (req: Request, res: Response) => {
+  const result = await technicianService.getMyBookings(req.user!.id);
+
+  sendResponse(res, {
+    success: true,
+    statusCode: httpStatus.OK,
+    message: "Bookings retrieved successfully",
+    data: result,
+  });
+});
+
+export const technicianController = { updateTechnicianProfile, getMyBookings };

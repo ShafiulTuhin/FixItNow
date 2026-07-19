@@ -11,10 +11,5 @@ router.get(
   auth(UserRole.CUSTOMER, UserRole.TECHNICIAN, UserRole.ADMIN),
   userController.getMyProfile,
 );
-router.put(
-  "/me/update",
-  auth(UserRole.TECHNICIAN),
-  userController.updateMyProfile,
-);
 
 export const userRoutes = router;

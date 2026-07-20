@@ -10,5 +10,7 @@ router.post(
   auth(UserRole.CUSTOMER),
   paymentController.createCheckoutSession,
 );
+router.get("/", auth(UserRole.CUSTOMER), paymentController.getMyPayments);
+router.get("/:id", auth(UserRole.CUSTOMER), paymentController.getPaymentById);
 
 export const paymentRoutes = router;

@@ -23,9 +23,9 @@ const createCheckoutSession = async (bookingId: string) => {
   //   }
 
   // Prevent duplicate payment
-  //   if (booking.paymentStatus === "PAID") {
-  //     throw new Error("Booking already paid");
-  //   }
+  if (booking.paymentStatus === "PAID") {
+    throw new Error("Booking already paid");
+  }
 
   // Create Stripe Checkout Session
   const session = await stripe.checkout.sessions.create({
@@ -43,7 +43,7 @@ const createCheckoutSession = async (bookingId: string) => {
             description: booking.service.description,
           },
 
-          unit_amount: Math.round(booking.service.price),
+          unit_amount: Math.round(booking.service.price * 100),
         },
 
         quantity: 1,
@@ -75,6 +75,46 @@ const createCheckoutSession = async (bookingId: string) => {
   };
 };
 
+const getMyPayments = async (userId: string) => {
+  const payments = await prisma.payment.findMany({
+    where: {
+      customerId: userId,
+    },
+    // include: {
+    //   booking: true,
+    // },
+    orderBy: {
+      createdAt: "desc",
+    },
+  });
+
+  return payments;
+};
+
+const getPaymentById = async (paymentId: string, userId: string) => {
+  const payment = await prisma.payment.findFirstOrThrow({
+    where: {
+      id: paymentId,
+      customerId: userId,
+    },
+    include: {
+      booking: {
+        include: {
+          service: {
+            include: {
+              category: true,
+            },
+          },
+        },
+      },
+    },
+  });
+
+  return payment;
+};
+
 export const paymentService = {
   createCheckoutSession,
+  getMyPayments,
+  getPaymentById,
 };

@@ -12,6 +12,7 @@ import { techniciansRoutes } from "./modules/technicians/technicians.route";
 import { technicianRoutes } from "./modules/technician/technician.route";
 import { bookingRoutes } from "./modules/bookings/booking.route";
 import { reviewRoutes } from "./modules/review/review.route";
+import { paymentRoutes } from "./modules/payment/payment.route";
 
 const app: Application = express();
 
@@ -32,6 +33,7 @@ app.use("/api/technicians", techniciansRoutes);
 app.use("/api/technician", technicianRoutes);
 app.use("/api/bookings", bookingRoutes);
 app.use("/api/reviews", reviewRoutes);
+app.use("/api/payments", paymentRoutes);
 
 app.use(notFound);
 app.use(globalErrorHandler);

@@ -590,14 +590,6 @@ export type ServiceCreateskillsInput = {
   set: string[]
 }
 
-export type FloatFieldUpdateOperationsInput = {
-  set?: number
-  increment?: number
-  decrement?: number
-  multiply?: number
-  divide?: number
-}
-
 export type ServiceUpdateskillsInput = {
   set?: string[]
   push?: string | string[]

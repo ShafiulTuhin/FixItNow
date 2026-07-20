@@ -16,6 +16,7 @@ model User {
  profile Profile?
    myBookings Booking[]
    reviews     Review[]
+   payment Payment[]
 
 @@map("users")
 }
